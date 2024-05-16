@@ -5,7 +5,9 @@ obfuscated
 """
 from typing import List
 import re
+import os
 import logging
+import mysql.connector
 
 
 PII_FIELDS = ("email", "phone", "ssn", "password", "ip")
@@ -54,3 +56,19 @@ def get_logger() -> logging.Logger:
 
     logger.addHandler(stream_handler)
     return logger
+
+
+def get_db() -> mysql.connector.connection.MySQLConnection:
+    """Returns a connector to the database """
+    connector = None
+    user = os.environ.get("PERSONAL_DATA_DB_USERNAME")
+    password = os.environ.get("PERSONAL_DATA_DB_PASSWORD")
+    host = os.environ.get("PERSONAL_DATA_DB_HOST")
+    database = os.environ.get("PERSONAL_DATA_DB_NAME")
+
+    connector = mysql.connector.connect(host=host,
+                                        database=database,
+                                        user=user,
+                                        password=password)
+
+    return connector
