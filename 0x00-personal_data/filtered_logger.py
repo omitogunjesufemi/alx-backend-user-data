@@ -24,7 +24,7 @@ class RedactingFormatter(logging.Formatter):
         """Filter values in incoming log records using filter_datum"""
         message = record.getMessage()
         filtered_message = filter_datum(self.fields, self.REDACTION,
-                                       message, self.SEPARATOR)
+                                        message, self.SEPARATOR)
         record.msg = filtered_message
         return super(RedactingFormatter, self).format(record)
 
