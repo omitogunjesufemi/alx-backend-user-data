@@ -5,7 +5,7 @@ A module that hashes a password
 import bcrypt
 
 
-def hash_password(password: str):
+def hash_password(password: str) -> bytes:
     """
     Hashes a string into a password
     """
