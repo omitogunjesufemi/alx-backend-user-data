@@ -31,6 +31,15 @@ class Auth:
             else:
                 return True
 
+        x_path = [_path for _path in excluded_paths if _path.endswith("*")]
+        for x in x_path:
+            x = x.split("/")[-1]
+            path = path.split("/")[-1]
+            if x in path or path in x:
+                return False
+            else:
+                return True
+
         return True
 
     def authorization_header(self, request=None) -> str:
