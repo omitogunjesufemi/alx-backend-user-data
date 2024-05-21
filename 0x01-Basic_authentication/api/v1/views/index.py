@@ -33,3 +33,12 @@ def unauth() -> str:
       - execute the 401 handler
     """
     abort(401)
+
+
+@app_views.route('/forbidden', strict_slashes=False)
+def forbid() -> str:
+    """GET /api/v1/forbidden
+    Return:
+      - execute the 403 handler
+    """
+    abort(403)
