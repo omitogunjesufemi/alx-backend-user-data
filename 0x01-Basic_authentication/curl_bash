@@ -1,0 +1,10 @@
+#!/bin/bash
+curl "http://0.0.0.0:5000/api/v1/status" && echo ;
+
+curl "http://0.0.0.0:5000/api/v1/users" && echo ;
+
+curl "http://0.0.0.0:5000/api/v1/users" -H "Authorization: Test" && echo ;
+
+curl "http://0.0.0.0:5000/api/v1/users" -H "Authorization: Basic test" && echo ;
+
+curl "http://0.0.0.0:5000/api/v1/users" -H "Authorization: Basic Ym9iMTAwQGhidG4uaW86SDBsYmVydG9uOlNjaG9vbDo5OCE="
