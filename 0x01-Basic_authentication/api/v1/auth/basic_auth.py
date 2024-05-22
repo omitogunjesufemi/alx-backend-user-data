@@ -13,7 +13,8 @@ class BasicAuth(Auth):
     BasicAuth class inherits from Auth
     """
     def extract_base64_authorization_header(self,
-                                            authorization_header: str) -> str:
+                                            authorization_header:
+                                            str) -> str:
         """
         Returns the Base64 part of the Authorization header
         for a Basic Authentication
@@ -31,7 +32,8 @@ class BasicAuth(Auth):
             return None
 
     def decode_base64_authorization_header(self,
-                                           base64_authorization_header: str) -> str:
+                                           base64_authorization_header:
+                                           str) -> str:
         """
         Returns the decoded value of a Base64 string:
         - base64_authorization_header
@@ -50,7 +52,8 @@ class BasicAuth(Auth):
             return None
 
     def extract_user_credentials(self,
-                                 decoded_base64_authorization_header: str) -> (str, str):
+                                 decoded_base64_authorization_header:
+                                 str) -> (str, str):
         """
         Returns the user email and password from the Base64 decoded value
         """
