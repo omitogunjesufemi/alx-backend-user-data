@@ -4,6 +4,7 @@ This module contains the Auth class
 """
 from flask import request
 from typing import List, TypeVar
+from os import getenv
 
 
 class Auth:
@@ -63,3 +64,14 @@ class Auth:
         request - Flask request object
         """
         return None
+
+    def session_cookie(self, request=None):
+        """
+        Returns a cookie value from a request
+        """
+        if request is None:
+            return None
+
+        _my_session_id = getenv("SESSION_NAME")
+        cookie_value = request.cookies.get(_my_session_id)
+        return cookie_value
