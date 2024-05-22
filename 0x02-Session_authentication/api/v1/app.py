@@ -57,8 +57,9 @@ def before_request():
                          '/api/v1/forbidden/']
         if auth.require_auth(request.path, excluded_path):
             if auth.authorization_header(request):
-                if auth.current_user(request):
-                    pass
+                current_user = auth.current_user(request)
+                if current_user:
+                    request.current_user = current_user
                 else:
                     abort(403)
             else:
