@@ -57,7 +57,8 @@ def before_request():
     if auth:
         excluded_path = ['/api/v1/status/',
                          '/api/v1/unauthorized/',
-                         '/api/v1/forbidden/']
+                         '/api/v1/forbidden/',
+                         '/api/v1/auth_session/login/']
         if auth.require_auth(request.path, excluded_path):
             if auth.authorization_header(request):
                 current_user = auth.current_user(request)
@@ -66,6 +67,8 @@ def before_request():
                 else:
                     abort(403)
             else:
+                if auth.session_cookie(request) is None:
+                    abort(401)
                 abort(401)
 
 
