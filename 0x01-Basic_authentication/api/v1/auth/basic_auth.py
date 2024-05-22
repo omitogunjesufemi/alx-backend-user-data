@@ -92,7 +92,7 @@ class BasicAuth(Auth):
         attr = {"email": user_email}
         user_list = User.search(attr)
 
-        if len(user_list) == 0:
+        if (len(user_list) == 0) or user_list is None:
             return None
 
         user = user_list[0]
