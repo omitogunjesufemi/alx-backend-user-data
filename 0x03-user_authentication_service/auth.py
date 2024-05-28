@@ -41,10 +41,6 @@ class Auth:
         except NoResultFound:
             return False
 
-    def _generate_uuid(self) -> str:
-        """Return a string representation of a new UUID"""
-        return str(uuid.uuid4())
-
     def create_session(self, email: str) -> str:
         """
         Find user corresponding to the email and generate a new
@@ -54,7 +50,7 @@ class Auth:
         """
         try:
             user = self._db.find_user_by(email=email)
-            session_id = self._generate_uuid()
+            session_id = _generate_uuid()
             self._db.update_user(user.id, session_id=session_id)
             return session_id
         except NoResultFound:
@@ -86,7 +82,7 @@ class Auth:
         Return the token"""
         try:
             user = self._db.find_user_by(email=email)
-            reset_token = self._generate_uuid()
+            reset_token = _generate_uuid()
             self._db.update_user(user.id, reset_token=reset_token)
             return reset_token
         except NoResultFound:
@@ -101,3 +97,7 @@ def _hash_password(password: str) -> bytes:
     password = password.encode("utf-8")
     hashed_password = bcrypt.hashpw(password, bcrypt.gensalt())
     return hashed_password
+
+def _generate_uuid(self) -> str:
+    """Return a string representation of a new UUID"""
+    return str(uuid.uuid4())
