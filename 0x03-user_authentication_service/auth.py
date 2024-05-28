@@ -5,6 +5,7 @@ This module is for authentication methods
 import bcrypt
 import uuid
 from db import DB
+from user import User
 from typing import TypeVar, Optional
 from sqlalchemy.exc import InvalidRequestError
 from sqlalchemy.orm.exc import NoResultFound
@@ -17,7 +18,7 @@ class Auth:
     def __init__(self):
         self._db = DB()
 
-    def register_user(self, email: str, password: str) -> TypeVar("User"):
+    def register_user(self, email: str, password: str) -> User:
         """ """
         try:
             user = self._db.find_user_by(email=email)
@@ -59,7 +60,7 @@ class Auth:
             pass
 
     def get_user_from_session_id(self,
-                                 session_id: str) -> Optional[TypeVar("User")]:
+                                 session_id: str) -> Optional[User]:
         """Returns user from session_id"""
         if session_id is None:
             return None
