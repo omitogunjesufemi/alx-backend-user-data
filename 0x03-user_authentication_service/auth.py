@@ -75,6 +75,15 @@ class Auth:
         self._db.update_user(user_id, session_id=None)
         return None
 
+    def get_rest_password_token(self, email: str) -> str:
+        """Find the user corresponing to the email and generate a UUID
+        and update the user's reset token database field
+
+        If the user does not exist, raise ValueError
+
+        Return the token"""
+        pass
+
 
 def _hash_password(password: str) -> bytes:
     """

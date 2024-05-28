@@ -34,7 +34,7 @@ class DB:
         return self.__session
 
     def add_user(self, email: str,
-                 hashed_password: str) -> TypeVar("User"):
+                 hashed_password: str) -> TypeVar["User"]:
         """
         Save the user to the database
         """
@@ -48,7 +48,7 @@ class DB:
 
         return user
 
-    def find_user_by(self, **arb_args):
+    def find_user_by(self, **arb_args) -> TypeVar["User"]:
         """
         Returns the first row found in the users table as filtered by
         the method's input arguments
@@ -58,7 +58,7 @@ class DB:
             raise(NoResultFound)
         return user
 
-    def update_user(self, user_id: int, **arb_args):
+    def update_user(self, user_id: int, **arb_args) -> None:
         """
         Locate the user and update its attributes as passed in the
         arguments
