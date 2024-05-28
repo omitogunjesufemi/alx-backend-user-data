@@ -84,7 +84,13 @@ class Auth:
         If the user does not exist, raise ValueError
 
         Return the token"""
-        pass
+        try:
+            user = self._db.find_user_by(email=email)
+            reset_token = self._generate_uuid()
+            self._db.update_user(user.id, reset_token=reset_token)
+            return reset_token
+        except NoResultFound:
+            raise ValueError
 
 
 def _hash_password(password: str) -> bytes:
