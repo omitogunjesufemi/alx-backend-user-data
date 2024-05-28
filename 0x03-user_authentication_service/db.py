@@ -33,8 +33,7 @@ class DB:
             self.__session = DBSession()
         return self.__session
 
-    def add_user(self, email: str,
-                 hashed_password: str) -> TypeVar["User"]:
+    def add_user(self, email: str, hashed_password: str) -> User:
         """
         Save the user to the database
         """
@@ -48,7 +47,7 @@ class DB:
 
         return user
 
-    def find_user_by(self, **arb_args) -> TypeVar["User"]:
+    def find_user_by(self, **arb_args) -> User:
         """
         Returns the first row found in the users table as filtered by
         the method's input arguments
