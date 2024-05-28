@@ -3,6 +3,7 @@
 This module is for authentication methods
 """
 import bcrypt
+import uuid
 from db import DB
 from typing import TypeVar
 from sqlalchemy.exc import InvalidRequestError
@@ -37,6 +38,10 @@ class Auth:
             return False
         except NoResultFound:
             return False
+
+    def _generate_uuid() -> str:
+        """Return a string representation of a new UUID"""
+        return str(uuid.uuid4())
 
 
 def _hash_password(password: str) -> bytes:
