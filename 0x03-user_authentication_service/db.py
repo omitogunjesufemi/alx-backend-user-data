@@ -52,13 +52,14 @@ class DB:
         Returns the first row found in the users table as filtered by
         the method's input arguments
         """
-        try:
-            user = self._session.query(User).filter_by(**arb_args).first()
-            if user is None:
-                raise NoResultFound
-            return user
-        except TypeError:
-            raise InvalidRequestError
+        for arg in arb_args:
+            if arg not in User.__dict__:
+                raise InvalidRequestError
+
+        user = self._session.query(User).filter_by(**arb_args).first()
+        if user is None:
+            raise NoResultFound
+        return user
 
     def update_user(self, user_id: int, **arb_args) -> None:
         """
