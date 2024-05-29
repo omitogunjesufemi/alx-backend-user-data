@@ -101,6 +101,8 @@ class Auth:
             self._db.update_user(user.id, password=hash_pwd, reset_token=None)
         except NoResultFound:
             raise ValueError
+        except InvalidRequestError:
+            raise ValueError
 
 
 def _hash_password(password: str) -> bytes:

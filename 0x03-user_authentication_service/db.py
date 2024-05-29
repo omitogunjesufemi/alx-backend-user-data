@@ -52,21 +52,31 @@ class DB:
         Returns the first row found in the users table as filtered by
         the method's input arguments
         """
-        user = self._session.query(User).filter_by(**arb_args).first()
-        if user is None:
-            raise(NoResultFound)
-        return user
+        try:
+            user = self._session.query(User).filter_by(**arb_args).first()
+            if user is None:
+                raise NoResultFound
+            return user
+        except TypeError:
+            raise InvalidRequestError
 
     def update_user(self, user_id: int, **arb_args) -> None:
         """
         Locate the user and update its attributes as passed in the
         arguments
         """
-        user = self.find_user_by(id=user_id)
-        for key, value in arb_args.items():
-            if hasattr(user, key):
-                setattr(user, key, value)
-            else:
-                raise(ValueError)
-        self._session.commit()
-        return None
+        try:
+            user = self.find_user_by(id=user_id)
+            for key, value in arb_args.items():
+                if hasattr(user, key):
+                    setattr(user, key, value)
+                else:
+                    raise(ValueError)
+            self._session.commit()
+            return None
+        except NoResultFound:
+            return None
+        except InvalidRequestError:
+            return None
+        finally:
+            return None
