@@ -78,6 +78,6 @@ class DB:
         except NoResultFound:
             return None
         except InvalidRequestError:
-            raise ValueError
+            return None
         finally:
             return None
