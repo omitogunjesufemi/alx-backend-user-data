@@ -84,12 +84,10 @@ class Auth:
         Return the token"""
         try:
             user = self._db.find_user_by(email=email)
-            if not user:
-                raise ValueError
             reset_token = _generate_uuid()
             self._db.update_user(user.id, reset_token=reset_token)
             return reset_token
-        except NoResultFound:
+        except Exception:
             raise ValueError
 
     def update_password(self, reset_token: str, password: str) -> None:
